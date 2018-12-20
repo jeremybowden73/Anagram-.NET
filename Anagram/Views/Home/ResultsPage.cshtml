@@ -1,0 +1,27 @@
+﻿@model Anagram.Models.UserData
+
+@{
+    ViewData["Title"] = "Results";
+}
+
+@if (Model.AvailableWords.Count == 0)
+{
+    <h3>Sorry, it looks like your letters <span class="user-letters">@Model.UserText</span> have no anagrams.</h3>
+}
+else
+{
+    <h3 class="text-center">Here's the anagrams from your letters <span class="user-letters">@Model.UserText</span></h3>
+    <h5 class="text-center">Click <span><a asp-area="" asp-controller="Home" asp-action="Index">HERE</a></span> or on ANAGRAM in the header to go again.</h5>
+    <h3>
+        <ul class="word-list">
+            @foreach (var x in Model.AvailableWords)
+            {
+                <li>@x</li>
+            }
+        </ul>
+    </h3><br />
+}
+
+
+<h5 class="text-center">Click <span><a asp-area="" asp-controller="Home" asp-action="Index">HERE</a></span> or on ANAGRAM in the header to go again.</h5>
+

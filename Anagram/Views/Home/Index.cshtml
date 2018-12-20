@@ -1,0 +1,25 @@
+﻿@model Anagram.Models.UserLetters;
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h3 class="text-center">
+    <p>Enter some letters (between 2 and 12) and click Submit.</p><br />
+    <p>All the words that can be made from your submitted letters will be displayed.</p><br />
+    <p>No numbers or special characters!</p><br />
+</h3>
+
+<form asp-action="Index" method="post" class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-md-12">
+            <textarea asp-for="UserInputtedText" class="form-control" id="text-input-area"></textarea>
+            <span asp-validation-for="UserInputtedText" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-success" id="submit-button" value="Submit" />
+        </div>
+    </div>
+</form>

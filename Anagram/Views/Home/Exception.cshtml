@@ -1,0 +1,14 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h2 class="text-center">Oops... there's been an error.</h2>
+<h3>
+    @Model
+</h3><br /><br />
+<div class="div-full-width text-center">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Click here to try again</a>
+</div>
+
