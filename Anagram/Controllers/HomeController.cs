@@ -31,21 +31,21 @@ namespace Anagram.Controllers
             // if the returned model is good,
             // invoke the MainService method on the HomeServices object that was injected when the current
             // HomeController was created (it is Transient), passing along userLetters which contains the user's inputted text
-            var HomeServicesViewModelToReturn = _homeServices.MainService(userLetters);
+            var HomeServicesViewModel = _homeServices.MainService(userLetters);
 
 
 
             // if the returned viewmodel's UserData property is populated, use it with the ReturnViewName property for the View
-            if (HomeServicesViewModelToReturn.UserData != null)
+            if (HomeServicesViewModel.UserData != null)
             {
-                return View(HomeServicesViewModelToReturn.ReturnViewName,
-                HomeServicesViewModelToReturn.UserData);
+                return View(HomeServicesViewModel.ReturnViewName,
+                HomeServicesViewModel.UserData);
             }
             // otherwise, an exception was caught, so use the ReturnViewMessage property instead of UserData
             else
             {
-                return View(HomeServicesViewModelToReturn.ReturnViewName,
-                HomeServicesViewModelToReturn.ReturnViewMessage);
+                return View(HomeServicesViewModel.ReturnViewName,
+                HomeServicesViewModel.ReturnViewMessage);
             }
 
         }

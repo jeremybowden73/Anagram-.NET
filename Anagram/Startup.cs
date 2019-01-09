@@ -28,9 +28,12 @@ namespace Anagram
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // this allows an instance of IHomeServices to be injected into HomeController.cs
+            // this provides a HomeServices object when the dependency injection in
+            // HomeController.cs calls for a IHomeServices
             services.AddTransient<IHomeServices, HomeServices>();
-            // this allows instances to be injected into HomeServices.cs
+
+            // this provides a HomeServicesViewModel object and a UserData object when the 
+            // dependency injection in HomeServices.cs calls for these two interfaces
             services.AddTransient<IHomeServicesViewModel, HomeServicesViewModel>();
             services.AddTransient<IUserData, UserData>();
 
