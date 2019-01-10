@@ -1,12 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Anagram.Models
 {
-    public static class CheckDictionaryWords
+    public interface ICheckDictionaryWords
     {
+        string UserText { get; set; }
+
+        List<string> CheckAllDictionaryWords();
+    }
+
+    public class CheckDictionaryWords : ICheckDictionaryWords
+    {
+        public readonly List<string> AllDictionaryWords = System.IO.File.ReadLines("Data/corncob.txt").ToList();
+        public List<string> AvailableWords = new List<string>();
+        public string UserText { get; set; }
+        
         // method to iterate over all strings in AllDictionaryWords, and check if the string can be
         // made from the characters in UserText. If it can, add it to the AvailableWords list.
-        public static List<string> CheckAllDictionaryWords(List<string> AllDictionaryWords, List<string> AvailableWords, string UserText)
+        public List<string> CheckAllDictionaryWords()
         {
             foreach (string word in AllDictionaryWords)
             {

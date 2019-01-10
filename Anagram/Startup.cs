@@ -30,12 +30,12 @@ namespace Anagram
 
             // this provides a HomeServices object when the dependency injection in
             // HomeController.cs calls for a IHomeServices
-            services.AddTransient<IHomeServices, HomeServices>();
+            //services.AddTransient<IHomeServices, HomeServices>();
 
             // this provides a HomeServicesViewModel object and a UserData object when the 
             // dependency injection in HomeServices.cs calls for these two interfaces
-            services.AddTransient<IHomeServicesViewModel, HomeServicesViewModel>();
-            services.AddTransient<IUserData, UserData>();
+            services.AddTransient<ICheckDictionaryWords, CheckDictionaryWords>();
+            //services.AddTransient<IUserData, UserData>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

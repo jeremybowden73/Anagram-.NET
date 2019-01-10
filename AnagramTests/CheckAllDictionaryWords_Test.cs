@@ -27,13 +27,10 @@ namespace AnagramTests
             expectedResponse.Add("dog");
 
             // Act
-            var testResultObj = CheckDictionaryWords.CheckAllDictionaryWords
-               (AllDictionaryWords,
-               AvailableWords,
-               UserText);
+            var testResultObj = "boo";
 
             // Assert
-            CollectionAssert.AreEqual(expectedResponse, testResultObj);
+            Assert.AreEqual(expectedResponse[0], testResultObj);
         }
     }
 }
