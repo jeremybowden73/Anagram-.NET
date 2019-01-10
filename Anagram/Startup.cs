@@ -28,14 +28,10 @@ namespace Anagram
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // this provides a HomeServices object when the dependency injection in
-            // HomeController.cs calls for a IHomeServices
-            //services.AddTransient<IHomeServices, HomeServices>();
-
-            // this provides a HomeServicesViewModel object and a UserData object when the 
-            // dependency injection in HomeServices.cs calls for these two interfaces
+            // these provide the relevant object (e.g. CheckDictionaryWords) when the 
+            // dependency injections call for these interfaces
             services.AddTransient<ICheckDictionaryWords, CheckDictionaryWords>();
-            //services.AddTransient<IUserData, UserData>();
+            services.AddTransient<IResultsViewModel, ResultsViewModel>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

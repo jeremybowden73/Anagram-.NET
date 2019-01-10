@@ -7,12 +7,10 @@ namespace Anagram.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly IHomeServices _homeServices;
         private readonly ICheckDictionaryWords _checkDictionaryWords;
 
         public HomeController(ICheckDictionaryWords CDW)
         {
-            //_homeServices = HS;
             _checkDictionaryWords = CDW;
         }
 
@@ -31,35 +29,21 @@ namespace Anagram.Controllers
                 return View(userLetters);
             }
 
-            // if the returned model is good,
-            // invoke the MainService method on the HomeServices object that was injected when the current
-            // HomeController was created (it is Transient), passing along userLetters which contains the user's inputted text
-
-            //var HomeServicesViewModel = _homeServices.MainService(userLetters);
-
+            // if the returned model is good, populate the userText property in the injected _checkDictionaryWords object,
             _checkDictionaryWords.UserText = userLetters.UserInputtedText;
 
-            var ResultsViewData = new ResultsViewModel
+            // create a new ResultsViewData object by invoking the method CheckAllDictionaryWords
+            var ResultsViewData = _checkDictionaryWords.CheckAllDictionaryWords();
+
+            // return the appropriate View and object, dependant on the ReturnViewName property of ResultsViewData
+            if (ResultsViewData.ReturnViewName == "ResultsPage")
             {
-                AvailableWords = _checkDictionaryWords.CheckAllDictionaryWords()
-            };
-
-            return View("ResultsPage", ResultsViewData);
-
-            // if the returned viewmodel's UserData property is populated, use it with the ReturnViewName property for the View
-            //if (HomeServicesViewModel.UserData != null)
-            //{
-            //    //return View(HomeServicesViewModel.ReturnViewName,
-            //    //HomeServicesViewModel.UserData);
-            //    return View("ResultsPage", );
-            //}
-            // otherwise, an exception was caught, so use the ReturnViewMessage property instead of UserData
-            //else
-            //{
-            //    //return View(HomeServicesViewModel.ReturnViewName,
-            //    //HomeServicesViewModel.ReturnViewMessage);
-            //    return View("Exception", "big error!");
-            //}
+                return View("ResultsPage", ResultsViewData);
+            }
+            else // exception!!
+            {
+                return View("Exception", ResultsViewData.ReturnViewMessage);
+            }
 
         }
 

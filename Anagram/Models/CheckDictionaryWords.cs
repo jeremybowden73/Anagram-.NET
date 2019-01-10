@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Anagram.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Anagram.Models
@@ -7,46 +10,83 @@ namespace Anagram.Models
     {
         string UserText { get; set; }
 
-        List<string> CheckAllDictionaryWords();
+        IResultsViewModel CheckAllDictionaryWords();
     }
 
     public class CheckDictionaryWords : ICheckDictionaryWords
     {
-        public readonly List<string> AllDictionaryWords = System.IO.File.ReadLines("Data/corncob.txt").ToList();
-        public List<string> AvailableWords = new List<string>();
+        private readonly IResultsViewModel _resultsViewModel;
+
+        public CheckDictionaryWords(IResultsViewModel RVM)
+        {
+            _resultsViewModel = RVM;
+        }
+
+        public List<string> AllDictionaryWords =  new List<string>();
         public string UserText { get; set; }
         
-        // method to iterate over all strings in AllDictionaryWords, and check if the string can be
-        // made from the characters in UserText. If it can, add it to the AvailableWords list.
-        public List<string> CheckAllDictionaryWords()
+        // method to populate the List AllDictionaryWords from a text-file dictionary, then iterate
+        // through each string and check if it can be made from the characters in UserText. If it can, add it to the AvailableWords list.
+        public IResultsViewModel CheckAllDictionaryWords()
         {
-            foreach (string word in AllDictionaryWords)
+            // initialize a new empty List to store the found words
+            _resultsViewModel.AvailableWords = new List<string>();
+            // set the view model's UserText property to that which was supplied (this is just so it is
+            // available in _resultsViewModel when it's returned to the Razor page)
+            _resultsViewModel.UserText = UserText;
+
+            // try to open the dictionary text file
+            try
             {
-                // create a copy of UserText for use while checking the current 'word'
-                var tempUserText = UserText;
+                AllDictionaryWords = System.IO.File.ReadLines("Data/corncob.txt").ToList();
+            }
+            catch (IOException ex)
+            {
+                _resultsViewModel.ReturnViewName = "Exception";
+                _resultsViewModel.ReturnViewMessage = ex.Message.ToString();
+                return _resultsViewModel;
+            }
 
-                for (int i = 0; i < word.Length; i++)
+            // try to populate AvailableWords with all the words from AllDictionaryWords that can
+            // be made from the user-inputted letters
+            try
+            {
+                foreach (string word in AllDictionaryWords)
                 {
-                    int index = tempUserText.IndexOf(word[i]);
+                    // create a copy of UserText for use while checking the current 'word'
+                    var tempUserText = UserText;
 
-                    if (index == -1) // character cannot be found in tempUserText, so break to the next 'word' in AllDictionaryWords
+                    for (int i = 0; i < word.Length; i++)
                     {
-                        break;
-                    }
+                        int index = tempUserText.IndexOf(word[i]);
 
-                    else
-                    {
-                        tempUserText = tempUserText.Remove(index, 1);
-
-                        if (i == word.Length - 1)
+                        if (index == -1) // character cannot be found in tempUserText, so break to the next 'word' in AllDictionaryWords
                         {
-                            AvailableWords.Add(word);
+                            break;
+                        }
+
+                        else
+                        {
+                            tempUserText = tempUserText.Remove(index, 1);
+
+                            if (i == word.Length - 1)
+                            {
+                                _resultsViewModel.AvailableWords.Add(word);
+                            }
                         }
                     }
                 }
-            }
 
-            return AvailableWords;
+                _resultsViewModel.ReturnViewName = "ResultsPage";
+
+                return _resultsViewModel;
+            }
+            catch (Exception ex)
+            {
+                _resultsViewModel.ReturnViewName = "Exception";
+                _resultsViewModel.ReturnViewMessage = "Looks like it's an 'Unspecified' error, sorry.";
+                return _resultsViewModel;
+            }
         }
     }
 }
