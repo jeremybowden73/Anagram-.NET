@@ -32,6 +32,7 @@ namespace Anagram
             // dependency injections call for these interfaces
             services.AddTransient<ICheckDictionaryWords, CheckDictionaryWords>();
             services.AddTransient<IResultsViewModel, ResultsViewModel>();
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

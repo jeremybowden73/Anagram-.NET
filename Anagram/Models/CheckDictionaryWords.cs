@@ -16,6 +16,7 @@ namespace Anagram.Models
     public class CheckDictionaryWords : ICheckDictionaryWords
     {
         private readonly IResultsViewModel _resultsViewModel;
+        //public string UserText { get; set; }
 
         public CheckDictionaryWords(IResultsViewModel RVM)
         {
@@ -38,7 +39,9 @@ namespace Anagram.Models
             // try to open the dictionary text file
             try
             {
+                //AllDictionaryWords.Add("first");
                 AllDictionaryWords = System.IO.File.ReadLines("Data/corncob.txt").ToList();
+                //AllDictionaryWords = System.IO.File.ReadLines("corncob.txt").ToList();
             }
             catch (IOException ex)
             {
@@ -54,7 +57,7 @@ namespace Anagram.Models
                 foreach (string word in AllDictionaryWords)
                 {
                     // create a copy of UserText for use while checking the current 'word'
-                    var tempUserText = UserText;
+                    var tempUserText = _resultsViewModel.UserText;
 
                     for (int i = 0; i < word.Length; i++)
                     {
