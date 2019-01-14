@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Anagram.Models
 {
@@ -16,11 +17,12 @@ namespace Anagram.Models
     public class CheckDictionaryWords : ICheckDictionaryWords
     {
         private readonly IResultsViewModel _resultsViewModel;
-        //public string UserText { get; set; }
+        private readonly ICheckWord _checkWord;
 
-        public CheckDictionaryWords(IResultsViewModel RVM)
+        public CheckDictionaryWords(IResultsViewModel RVM, ICheckWord CW)
         {
             _resultsViewModel = RVM;
+            _checkWord = CW;
         }
 
         public List<string> AllDictionaryWords =  new List<string>();
@@ -56,27 +58,17 @@ namespace Anagram.Models
             {
                 foreach (string word in AllDictionaryWords)
                 {
-                    // create a copy of UserText for use while checking the current 'word'
-                    var tempUserText = _resultsViewModel.UserText;
+                    var _dataForCheckWord = new DataForCheckWord();
+                    _dataForCheckWord.UserText = _resultsViewModel.UserText;
+                    _dataForCheckWord.Word = word;
 
-                    for (int i = 0; i < word.Length; i++)
+                    var _checkWord = new CheckWord(_dataForCheckWord);
+
+                    var result = _checkWord.CheckThisWord();
+
+                    if (result == true)
                     {
-                        int index = tempUserText.IndexOf(word[i]);
-
-                        if (index == -1) // character cannot be found in tempUserText, so break to the next 'word' in AllDictionaryWords
-                        {
-                            break;
-                        }
-
-                        else
-                        {
-                            tempUserText = tempUserText.Remove(index, 1);
-
-                            if (i == word.Length - 1)
-                            {
-                                _resultsViewModel.AvailableWords.Add(word);
-                            }
-                        }
+                        _resultsViewModel.AvailableWords.Add(word);
                     }
                 }
 
