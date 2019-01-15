@@ -29,7 +29,7 @@ namespace Anagram.Controllers
                 return View(userLetters);
             }
 
-            // if the returned model is good, populate the UserText property in the injected _checkDictionaryWords object,
+            // if the returned model is good, populate the UserText property in the injected _checkDictionaryWords object
             _checkDictionaryWords.UserText = userLetters.UserInputtedText;
 
             // create a new ResultsViewData object by invoking the method CheckAllDictionaryWords

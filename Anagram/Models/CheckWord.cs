@@ -7,17 +7,12 @@ namespace Anagram.Models
 {
     public interface ICheckWord
     {
-        string Word { get; set; }
-        string UserText { get; set; }
         void Populate_DataForCheckWord(string MyText, string MyWord);
         bool CheckThisWord();
     }
 
     public class CheckWord : ICheckWord
     {
-        public string Word { get; set; }
-        public string UserText { get; set; }
-
         public readonly IDataForCheckWord _dataForCheckWord;
 
         public CheckWord(IDataForCheckWord DFCW)
@@ -33,12 +28,9 @@ namespace Anagram.Models
 
         public bool CheckThisWord()
         {
-            UserText = _dataForCheckWord.UserText;
-            Word = _dataForCheckWord.Word;
-
-            for (int i = 0; i < Word.Length; i++)
+            for (int i = 0; i < _dataForCheckWord.Word.Length; i++)
             {
-                int index = UserText.IndexOf(Word[i]);
+                int index = _dataForCheckWord.UserText.IndexOf(_dataForCheckWord.Word[i]);
 
                 if (index == -1) // character cannot be found in UserText, so return false
                 {
@@ -47,9 +39,9 @@ namespace Anagram.Models
 
                 else
                 {
-                    UserText = UserText.Remove(index, 1);
+                    _dataForCheckWord.UserText = _dataForCheckWord.UserText.Remove(index, 1);
 
-                    if (i == Word.Length - 1)
+                    if (i == _dataForCheckWord.Word.Length - 1)
                     {
                         return true;
                     }
