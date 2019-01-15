@@ -41,9 +41,7 @@ namespace Anagram.Models
             // try to open the dictionary text file
             try
             {
-                //AllDictionaryWords.Add("first");
                 AllDictionaryWords = System.IO.File.ReadLines("Data/corncob.txt").ToList();
-                //AllDictionaryWords = System.IO.File.ReadLines("corncob.txt").ToList();
             }
             catch (IOException ex)
             {
@@ -58,13 +56,9 @@ namespace Anagram.Models
             {
                 foreach (string word in AllDictionaryWords)
                 {
-                    //var _dataForCheckWord = new DataForCheckWord();
                     _checkWord.Populate_DataForCheckWord(UserText, word);
-                    //_checkWord.UserText = UserText;
-                    //_checkWord.Word = word;
-
-                    //var _checkWord = new CheckWord(_dataForCheckWord);
-
+                    
+                    // check the "current" word in the foreach loop
                     var result = _checkWord.CheckThisWord();
 
                     if (result == true)
