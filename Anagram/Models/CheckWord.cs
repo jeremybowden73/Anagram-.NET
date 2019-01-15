@@ -7,21 +7,28 @@ namespace Anagram.Models
 {
     public interface ICheckWord
     {
-        //string Word { get; set; }
-        //string UserText { get; set; }
+        string Word { get; set; }
+        string UserText { get; set; }
+        void Populate_DataForCheckWord(string MyText, string MyWord);
         bool CheckThisWord();
     }
 
     public class CheckWord : ICheckWord
     {
-        //public string Word { get; set; }
-        //public string UserText { get; set; }
+        public string Word { get; set; }
+        public string UserText { get; set; }
 
         public readonly IDataForCheckWord _dataForCheckWord;
 
         public CheckWord(IDataForCheckWord DFCW)
         {
             _dataForCheckWord = DFCW;
+        }
+
+        public void Populate_DataForCheckWord(string MyText, string MyWord)
+        {
+            _dataForCheckWord.UserText = MyText;
+            _dataForCheckWord.Word = MyWord;
         }
 
         public bool CheckThisWord()

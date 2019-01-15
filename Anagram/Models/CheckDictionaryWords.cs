@@ -58,11 +58,12 @@ namespace Anagram.Models
             {
                 foreach (string word in AllDictionaryWords)
                 {
-                    var _dataForCheckWord = new DataForCheckWord();
-                    _dataForCheckWord.UserText = _resultsViewModel.UserText;
-                    _dataForCheckWord.Word = word;
+                    //var _dataForCheckWord = new DataForCheckWord();
+                    _checkWord.Populate_DataForCheckWord(UserText, word);
+                    //_checkWord.UserText = UserText;
+                    //_checkWord.Word = word;
 
-                    var _checkWord = new CheckWord(_dataForCheckWord);
+                    //var _checkWord = new CheckWord(_dataForCheckWord);
 
                     var result = _checkWord.CheckThisWord();
 

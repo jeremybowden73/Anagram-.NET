@@ -12,11 +12,14 @@ namespace AnagramTests
         {
             // Arrange
             var mockIDataForCheckWord = new Mock<IDataForCheckWord>();
-
-            mockIDataForCheckWord.Setup(m => m.UserText).Returns("cat");
-            mockIDataForCheckWord.Setup(m => m.Word).Returns("at");
-
+            mockIDataForCheckWord.Setup(m => m.UserText).Returns("to");
+            mockIDataForCheckWord.Setup(m => m.Word).Returns("toototot");
             var testResObj = new CheckWord(mockIDataForCheckWord.Object);
+
+            //var testDataForCheckWord = new DataForCheckWord();
+            //testDataForCheckWord.UserText = "cat";
+            //testDataForCheckWord.Word = "at";
+            //var testResObj = new CheckWord(testDataForCheckWord);
 
 
 
