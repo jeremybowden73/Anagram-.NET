@@ -48,16 +48,16 @@ namespace AnagramTests
             // when the method-on-test (CheckThisWord) finds a letter in mockIDataForCheckWord.Word that
             // is in mockIDataForCheckWord.UserText. The algorithm in CheckThisWord() should mutate the
             // UserText when a letter if found. Works OK in the program, but not in this test.
-            //var mockIDataForCheckWord = new Mock<IDataForCheckWord>();
-            //mockIDataForCheckWord.Setup(m => m.UserText).Returns("to");
-            //mockIDataForCheckWord.Setup(m => m.Word).Returns("toototot");
-            //var testResObj = new CheckWord(mockIDataForCheckWord.Object);
+            var mockIDataForCheckWord = new Mock<IDataForCheckWord>();
+            mockIDataForCheckWord.Setup(m => m.UserText).Returns("to");
+            mockIDataForCheckWord.Setup(m => m.Word).Returns("tot");
+            var testResObj = new CheckWord(mockIDataForCheckWord.Object);
 
             // So do it the simple way instead
-            var testDataForCheckWord = new DataForCheckWord();
-            testDataForCheckWord.UserText = "to";
-            testDataForCheckWord.Word = "tot"; // invalid because each letter in UserText can only be use once
-            var testResObj = new CheckWord(testDataForCheckWord);
+            //var testDataForCheckWord = new DataForCheckWord();
+            //testDataForCheckWord.UserText = "to";
+            //testDataForCheckWord.Word = "tot"; // invalid because each letter in UserText can only be use once
+            //var testResObj = new CheckWord(testDataForCheckWord);
 
             // Act
             var result = testResObj.CheckThisWord();

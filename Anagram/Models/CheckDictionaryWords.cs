@@ -56,9 +56,11 @@ namespace Anagram.Models
             {
                 foreach (string word in AllDictionaryWords)
                 {
+                    // populate _checkWord's injected _dataForCheckWord's properties
+                    // with UserText and the current 'word'
                     _checkWord.Populate_DataForCheckWord(UserText, word);
                     
-                    // check the "current" word in the foreach loop
+                    // check the current 'word' using _checkWord's CheckThisWord method
                     var result = _checkWord.CheckThisWord();
 
                     if (result == true)

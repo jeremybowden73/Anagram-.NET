@@ -33,9 +33,12 @@ namespace Anagram.Models
 
         public bool CheckThisWord()
         {
-            for (int i = 0; i < _dataForCheckWord.Word.Length; i++)
+            UserText = _dataForCheckWord.UserText;
+            Word = _dataForCheckWord.Word;
+
+            for (int i = 0; i < Word.Length; i++)
             {
-                int index = _dataForCheckWord.UserText.IndexOf(_dataForCheckWord.Word[i]);
+                int index = UserText.IndexOf(Word[i]);
 
                 if (index == -1) // character cannot be found in UserText, so return false
                 {
@@ -44,9 +47,9 @@ namespace Anagram.Models
 
                 else
                 {
-                    _dataForCheckWord.UserText = _dataForCheckWord.UserText.Remove(index, 1);
+                    UserText = UserText.Remove(index, 1);
 
-                    if (i == _dataForCheckWord.Word.Length - 1)
+                    if (i == Word.Length - 1)
                     {
                         return true;
                     }
