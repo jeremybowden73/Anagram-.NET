@@ -72,10 +72,6 @@ namespace Anagram.Models
                 // if the user-inputted text appears in the list, remove it because it's
                 // not really an anagram of itself
                 _resultsViewModel.AvailableWords.Remove(UserText);
-                
-                //_resultsViewModel.ReturnViewName = "ResultsPage";
-
-                //return _resultsViewModel;
             }
             catch (Exception ex)
             {
