@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <Compile Remove="Models\AnagramCreation\**" />
+    <Content Remove="Models\AnagramCreation\**" />
+    <EmbeddedResource Remove="Models\AnagramCreation\**" />
+    <None Remove="Models\AnagramCreation\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\AnagramCreation\" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>

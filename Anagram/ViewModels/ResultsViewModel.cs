@@ -16,6 +16,9 @@ namespace Anagram.ViewModels
         string UserText { get; set; }
 
         List<string> AvailableWords { get; set; }
+
+        IEnumerable<string> LongestWords { get; set; }
+        string LongestWords2 { get; set; }
     }
 
     public class ResultsViewModel : IResultsViewModel
@@ -27,5 +30,8 @@ namespace Anagram.ViewModels
         public string UserText { get; set; }
 
         public List<string> AvailableWords { get; set; }
+
+        public IEnumerable<string> LongestWords { get; set; }
+        public string LongestWords2 { get; set; }
     }
 }

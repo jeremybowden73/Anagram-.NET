@@ -50,8 +50,8 @@ namespace Anagram.Models
                 return _resultsViewModel;
             }
 
-            // try to populate AvailableWords with all the words from AllDictionaryWords that can
-            // be made from the user-inputted letters
+            // try to populate _resultsViewModel.AvailableWords with all the words
+            // from AllDictionaryWords that can be made from the user-inputted letters
             try
             {
                 foreach (string word in AllDictionaryWords)
@@ -69,8 +69,32 @@ namespace Anagram.Models
                     }
                 }
 
-                _resultsViewModel.ReturnViewName = "ResultsPage";
+                // if the user-inputted text appears in the list, remove it because it's
+                // not really an anagram of itself
+                _resultsViewModel.AvailableWords.Remove(UserText);
+                
+                //_resultsViewModel.ReturnViewName = "ResultsPage";
 
+                //return _resultsViewModel;
+            }
+            catch (Exception ex)
+            {
+                _resultsViewModel.ReturnViewName = "Exception";
+                _resultsViewModel.ReturnViewMessage = "Looks like it's an 'Unspecified' error, sorry.";
+                return _resultsViewModel;
+            }
+
+            // try to populate _resultsViewModel.LongestWords with the longest words
+            // from the List _resultsViewModel.AvailableWords
+            try
+            {
+                var ordered = _resultsViewModel.AvailableWords.OrderByDescending(x => x.Length).ToList<string>();
+
+                // FIND all elements with the Length of ordered[0];
+
+                _resultsViewModel.LongestWords2 = ordered[0];
+
+                _resultsViewModel.ReturnViewName = "ResultsPage";
                 return _resultsViewModel;
             }
             catch (Exception ex)
