@@ -27,6 +27,10 @@ h3 {
     margin-top: 50px;
 }
 
+ul {
+    padding-left: 0;
+}
+
 .div-full-width {
     width: 100%;
 }
@@ -66,8 +70,6 @@ nav {
 }
 
 .user-letters {
-    xfont-style: italic;
-    xfont-weight: 900;
     font-family: 'Righteous', cursive;
 }
 

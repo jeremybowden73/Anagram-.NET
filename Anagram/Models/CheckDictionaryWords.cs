@@ -88,12 +88,10 @@ namespace Anagram.Models
             // from the List _resultsViewModel.AvailableWords
             try
             {
-                var ordered = _resultsViewModel.AvailableWords.OrderByDescending(x => x.Length).ToList<string>();
+                var orderedAvailableWords = _resultsViewModel.AvailableWords.OrderByDescending(x => x.Length).ToList();
 
-                // FIND all elements with the Length of ordered[0];
-
-                _resultsViewModel.LongestWords2 = ordered[0];
-
+                _resultsViewModel.LongestWords = orderedAvailableWords.FindAll(x => x.Length == orderedAvailableWords[0].Length);
+               
                 _resultsViewModel.ReturnViewName = "ResultsPage";
                 return _resultsViewModel;
             }

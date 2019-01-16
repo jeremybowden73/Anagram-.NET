@@ -10,9 +10,17 @@
 }
 else
 {
-    <h3 class="text-center">The longest anagram within your letters <span class="user-letters">@Model.UserText</span> is <span class="user-letters">@Model.LongestWords2</span></h3>
+    <h3 class="text-center">The longest anagram(s) within your letters <span class="user-letters">@Model.UserText</span>:</h3>
+    <h2 class="user-letters">
+        <ul class="word-list">
+            @foreach (var x in Model.LongestWords)
+            {
+                <li>@x</li>
+            }
+        </ul>
+    </h2><br />
+    <h4 class="text-center">Click <span><a asp-area="" asp-controller="Home" asp-action="Index">HERE</a></span> or on ANAGRAM in the header to go again</h4>
     <h3 class="text-center">Here's all the anagrams from your letters</h3>
-    <h5 class="text-center">Click <span><a asp-area="" asp-controller="Home" asp-action="Index">HERE</a></span> or on ANAGRAM in the header to go again</h5>
     <h3>
         <ul class="word-list">
             @foreach (var x in Model.AvailableWords)
